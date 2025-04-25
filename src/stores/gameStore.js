@@ -43,8 +43,18 @@ export const useGameStore = defineStore('game', {
   },
 
   actions: {
+    // Reset trạng thái game khi chuyển game mới
+    resetGameState() {
+      this.gameStatus = '';
+      this.winnerMessage = '';
+      this.editingRowIndex = null;
+    },
+
     initGame() {
       const firebaseStore = useFirebaseStore();
+      
+      // Reset trạng thái mỗi khi khởi tạo game mới
+      this.resetGameState();
       
       // Cập nhật currentRoom
       this.currentRoom = firebaseStore.getCurrentRoom();
@@ -67,8 +77,14 @@ export const useGameStore = defineStore('game', {
 
     handleGameUpdate(dbGame) {
       const firebaseStore = useFirebaseStore();
+      const previousGameId = this.game?.firebaseId;
       
       this.game = dbGame;
+
+      // Nếu đây là game mới, reset trạng thái
+      if (previousGameId && previousGameId !== dbGame.firebaseId) {
+        this.resetGameState();
+      }
 
       // Đảm bảo các thuộc tính cần thiết tồn tại
       if (!this.game.scores) {
@@ -84,12 +100,18 @@ export const useGameStore = defineStore('game', {
       // Cập nhật trạng thái nếu game đã kết thúc
       if (this.game.isEnded) {
         this.displayWinner();
+      } else {
+        // Nếu game chưa kết thúc, đảm bảo không hiển thị thông báo người chiến thắng
+        this.winnerMessage = '';
+        this.gameStatus = '';
       }
     },
 
     cleanupSubscriptions() {
       const firebaseStore = useFirebaseStore();
       firebaseStore.unsubscribeToGamesScore();
+      // Reset trạng thái khi cleanup
+      this.resetGameState();
     },
 
     setEditingRowIndex(index) {

@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, onUnmounted, watchEffect, ref} from 'vue';
+import {onMounted, onUnmounted, ref, watch} from 'vue';
 import {useRouter} from 'vue-router';
 import {useGameStore, useUIStore} from '../stores';
 import ConfettiContainer from '../components/ConfettiContainer.vue';
@@ -12,7 +12,16 @@ const gameStore = useGameStore();
 const uiStore = useUIStore();
 const showConfetti = ref(false);
 
+// Cập nhật trạng thái confetti dựa vào trạng thái game
+function updateConfettiState() {
+  // Chỉ hiển thị confetti khi game đã kết thúc và có người thắng
+  showConfetti.value = gameStore.isGameEnded && !!gameStore.winnerMessage;
+}
+
 onMounted(() => {
+  // Khởi tạo game và ẩn confetti ban đầu
+  showConfetti.value = false;
+  
   const success = gameStore.initGame();
   if (!success) {
     alert('Không tìm thấy thông tin ván bài!');
@@ -20,17 +29,17 @@ onMounted(() => {
     return;
   }
   
-  // Theo dõi khi game kết thúc để hiển thị confetti
-  watchEffect(() => {
-    if (gameStore.isGameEnded && gameStore.winnerMessage) {
-      showConfetti.value = true;
-    }
-  });
+  // Cập nhật trạng thái confetti ban đầu
+  updateConfettiState();
 });
+
+// Theo dõi thay đổi trạng thái game để cập nhật confetti
+watch(() => [gameStore.isGameEnded, gameStore.winnerMessage, gameStore.game?.firebaseId], () => {
+  updateConfettiState();
+}, { immediate: true });
 
 onUnmounted(() => {
   gameStore.cleanupSubscriptions();
-  // Đảm bảo confetti không hiển thị nữa
   showConfetti.value = false;
 });
 
