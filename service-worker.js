@@ -1,13 +1,13 @@
 const CACHE_NAME = 'card-games-cache-v2';
 const urlsToCache = [
-    'ghidiembai/',
-    'ghidiembai/index.html',
-    'ghidiembai/favicon.ico',
-    'ghidiembai/manifest.json',
-    'ghidiembai/firebase-config.js',
-    'ghidiembai/assets/index.js',
-    'ghidiembai/assets/index.css',
-    'ghidiembai/assets/game-service.js'
+    '/ghidiembai/',
+    '/ghidiembai/index.html',
+    '/ghidiembai/favicon.ico',
+    '/ghidiembai/manifest.json',
+    '/ghidiembai/firebase-config.js',
+    '/ghidiembai/assets/index.js',
+    '/ghidiembai/assets/index.css',
+    '/ghidiembai/assets/game-service.js'
 ];
 
 // Cài đặt service worker và cache các file tĩnh
