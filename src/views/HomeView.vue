@@ -1,73 +1,55 @@
 <script setup>
-import {onMounted, onUnmounted, ref} from 'vue';
+import {onMounted, onUnmounted} from 'vue';
 import {useRouter} from 'vue-router';
+import {useRoomStore, useUIStore} from '../stores';
 import RoomSelector from '../components/RoomSelector.vue';
 import GamesList from '../components/GamesList.vue';
 import PlayerNamesModal from '../components/PlayerNamesModal.vue';
-import {
-  createNewGame,
-  createNewRoom,
-  getCurrentRoom,
-  openExistingGame,
-  subscribeToGames,
-  unsubscribeToGames
-} from "@/services/game-serive.js";
 
-// 🌐 Router
+// 🌐 Router và Store
 const router = useRouter();
-
-// 🔹 State
-const currentRoom = ref(getCurrentRoom());
-const games = ref([]);
-const showPlayerNamesModal = ref(false);
+const roomStore = useRoomStore();
+const uiStore = useUIStore();
 
 // 🔹 Gọi khi chọn/nhập phòng
 async function joinRoom(roomId = 'public') {
-  await createNewRoom(roomId);
-  subscribeToGames(currentRoom.value = roomId, (gamesArray) => {
-    games.value = gamesArray;
-  });
+  await roomStore.joinRoom(roomId);
 }
 
 // 🔹 Tạo modal
 function showNewGameModal() {
-  showPlayerNamesModal.value = true;
+  uiStore.showPlayerNamesModal();
 }
 
 // 🔹 Chuyển tới trang game
-function handleOpenGame(index) {
+async function handleOpenGame(index) {
   try {
-    const game = games.value[index];
-    openExistingGame(game);
+    await roomStore.openGame(index);
     router.push('/scoring');
   } catch (error) {
-    console.error("Error creating new game:", error);
-    alert("Có lỗi khi tạo ván mới. Vui lòng thử lại.");
+    alert("Có lỗi khi mở ván bài. Vui lòng thử lại.");
   }
 }
 
 // 🔹 Tạo ván bài mới
 async function handleStartGame(gameData) {
   try {
-    await createNewGame(gameData);
-    showPlayerNamesModal.value = false;
+    await roomStore.createNewGame(gameData);
+    uiStore.hidePlayerNamesModal();
     await router.push('/scoring');
   } catch (error) {
-    console.error("Error creating new game:", error);
     alert("Có lỗi khi tạo ván mới. Vui lòng thử lại.");
   }
 }
 
 // Load games when mounted
 onMounted(() => {
-  subscribeToGames(getCurrentRoom(), (gamesArray) => {
-    games.value = gamesArray;
-  });
+  roomStore.subscribeToGamesList();
 });
 
 // Hủy bỏ lắng nghe khi component unmount
 onUnmounted(() => {
-  unsubscribeToGames();
+  roomStore.unsubscribeFromGamesList();
 });
 </script>
 
@@ -76,22 +58,22 @@ onUnmounted(() => {
   <div class="container">
     <div class="header">
       <h1>Lịch Sử Ván Bài</h1>
-      <div v-if="currentRoom" class="room-badge">
-        Phòng: {{ currentRoom }}
+      <div v-if="roomStore.currentRoom" class="room-badge">
+        Phòng: {{ roomStore.currentRoom }}
       </div>
     </div>
 
     <RoomSelector @join-room="joinRoom"/>
 
     <GamesList
-        :games="games"
+        :games="roomStore.games"
         @open-game="handleOpenGame"
     />
 
     <PlayerNamesModal
-        :is-visible="showPlayerNamesModal"
-        :current-room="currentRoom"
-        @close="showPlayerNamesModal = false"
+        :is-visible="uiStore.playerNamesModalVisible"
+        :current-room="roomStore.currentRoom"
+        @close="uiStore.hidePlayerNamesModal()"
         @start-game="handleStartGame"
     />
 

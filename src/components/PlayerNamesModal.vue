@@ -64,7 +64,7 @@ function handleOutsideClick(e) {
 <template>
   <div v-if="isVisible" class="modal" @click="handleOutsideClick">
     <div class="modal-content">
-      <h2>Nhập Tên Người Chơi</h2>
+      <h3>Nhập Tên Người Chơi</h3>
       
       <div class="room-input-group">
         <label for="gameRoom">Mã phòng:</label>
@@ -87,7 +87,7 @@ function handleOutsideClick(e) {
         <button 
           id="startGameBtn" 
           class="confirm-btn" 
-          :class="{ disabled: !isValid() }"
+          :disabled="!isValid()"
           @click="startGame"
         >
           Bắt Đầu
@@ -97,3 +97,129 @@ function handleOutsideClick(e) {
     </div>
   </div>
 </template>
+
+<style scoped>
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.room-input-group {
+  margin-bottom: 20px;
+}
+
+.room-input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+.room-input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.2s ease;
+}
+
+.room-input-group input:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+.player-name-inputs {
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 12px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.2s ease;
+}
+
+.input-group input:focus {
+  border-color: #4CAF50;
+  outline: none;
+  background-color: #e8f5e9;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.confirm-btn, .cancel-btn {
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-weight: bold;
+}
+
+.confirm-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.confirm-btn:hover:not(:disabled) {
+  background-color: #45a049;
+}
+
+.confirm-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cancel-btn {
+  background-color: #f5f5f5;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.cancel-btn:hover {
+  background-color: #e0e0e0;
+}
+</style>

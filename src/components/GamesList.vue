@@ -1,5 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue';
+import { useUIStore } from '../stores';
+import LoadingSpinner from './LoadingSpinner.vue';
 
 const props = defineProps({
   games: {
@@ -7,6 +9,8 @@ const props = defineProps({
     default: () => []
   }
 });
+
+const uiStore = useUIStore();
 
 const reversedScores = computed(() => {
   return [...(props.games || [])].reverse();
@@ -35,9 +39,12 @@ function openGame(index) {
 
 <template>
   <div class="game-history">
-    <div v-if="!hasGames" class="no-games">
+    <LoadingSpinner v-if="uiStore.isLoading" />
+    
+    <div v-else-if="!hasGames" class="no-games">
       Chưa có ván bài nào được ghi nhận
     </div>
+    
     <div v-else class="games-list">
       <div 
         v-for="(game, index) in reversedScores"

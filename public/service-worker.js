@@ -1,4 +1,4 @@
-const CACHE_NAME = 'card-games-cache-v2';
+const CACHE_NAME = 'card-games-cache-v3';
 const urlsToCache = [
     '/ghidiembai/',
     '/ghidiembai/favicon.ico',
