@@ -5,14 +5,38 @@
     <link rel="icon" href="/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Ứng dụng quản lý lịch sử ván bài">
-    <meta name="theme-color" content="#41b883">
+    <meta name="theme-color" content="#f0f2f5">
+    <meta name="background-color" content="#f0f2f5">
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/icons/icon-128x128.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Ván Bài">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Ghi Điểm">
     <title>Lịch Sử Ván Bài</title>
+    <style>
+        html, body {
+            background-color: #f0f2f5;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Splash Screen Style */
+        @media (display-mode: standalone) {
+            body::before {
+                content: "";
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #f0f2f5;
+                z-index: -1;
+            }
+        }
+    </style>
 </head>
 <body>
 <div id="app"></div>
