@@ -8,6 +8,10 @@ const props = defineProps({
   }
 });
 
+const reversedScores = computed(() => {
+  return [...(props.games || [])].reverse();
+});
+
 const emit = defineEmits(['open-game']);
 
 const hasGames = computed(() => props.games.length > 0);
@@ -24,7 +28,8 @@ function formatDate(date) {
 }
 
 function openGame(index) {
-  emit('open-game', index);
+  const originalIndex = props.games.length - 1 - index;
+  emit('open-game', originalIndex);
 }
 </script>
 
@@ -35,7 +40,7 @@ function openGame(index) {
     </div>
     <div v-else class="games-list">
       <div 
-        v-for="(game, index) in games" 
+        v-for="(game, index) in reversedScores"
         :key="game.id" 
         class="game-item"
         @click="openGame(index)"
