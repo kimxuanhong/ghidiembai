@@ -11,7 +11,7 @@ import {
   openExistingGame,
   subscribeToGames,
   unsubscribeToGames
-} from "@/services/game-serive.js"; // Import the functions
+} from "@/services/game-serive.js";
 
 // 🌐 Router
 const router = useRouter();

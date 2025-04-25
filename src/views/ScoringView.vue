@@ -7,7 +7,8 @@ import ScoreModal from '../components/ScoreModal.vue';
 import EndGameModal from '../components/EndGameModal.vue';
 import {
   getCurrentGame,
-  getCurrentRoom, saveCurrentGame,
+  getCurrentRoom,
+  saveCurrentGame,
   subscribeToGamesScore,
   unsubscribeToGamesScore
 } from "@/services/game-serive.js";
