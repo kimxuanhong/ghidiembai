@@ -1,6 +1,12 @@
 import './assets/main.css'
 
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import App from './App.vue'
+import router from './router'
+import { db } from '@/firebase/firebase-config.js'
 
-createApp(App).mount('#app')
+
+// Hàm khởi tạo app
+const app = createApp(App);
+app.use(router);
+app.mount('#app');
