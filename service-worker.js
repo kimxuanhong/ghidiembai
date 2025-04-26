@@ -5,6 +5,7 @@ const urlsToCache = [
     '/ghidiembai/manifest.json',
     '/ghidiembai/assets/index.js',
     '/ghidiembai/assets/index.css',
+    '/ghidiembai/assets/index2.css',
     '/ghidiembai/assets/game-service.js'
 ];
 
