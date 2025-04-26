@@ -49,7 +49,8 @@ function openGame(index) {
       <div 
         v-for="(game, index) in reversedScores"
         :key="game.id" 
-        class="game-item"
+        class="game-item fly-in"
+        :style="{ animationDelay: index * 0.1 + 's' }"
         @click="openGame(index)"
       >
         <div class="game-info">
@@ -60,3 +61,26 @@ function openGame(index) {
     </div>
   </div>
 </template>
+
+<style scoped>
+.games-list {
+  overflow: hidden;
+}
+
+.game-item {
+  animation: flyIn 0.6s ease-out forwards;
+  opacity: 0;
+  transform: translateX(-50px);
+}
+
+@keyframes flyIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+</style>
