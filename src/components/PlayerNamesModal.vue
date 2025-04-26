@@ -66,13 +66,13 @@ function handleOutsideClick(e) {
     <div class="modal-content">
       <h3>Nhập Tên Người Chơi</h3>
       
-      <div class="room-input-group">
+      <div class="room-input-group fly-in">
         <label for="gameRoom">Mã phòng:</label>
         <input type="text" id="gameRoom" v-model="gameRoom" placeholder="Nhập mã phòng hoặc để trống">
       </div>
       
       <div class="player-name-inputs">
-        <div v-for="player in playerNames" :key="player.id" class="input-group">
+        <div v-for="(player, index) in playerNames" :key="player.id" class="input-group fly-in" :style="{ animationDelay: index * 0.1 + 's' }">
           <label :for="'playerName' + player.id">Người chơi {{ player.id }}:</label>
           <input 
             type="text" 
@@ -86,13 +86,14 @@ function handleOutsideClick(e) {
       <div class="modal-buttons">
         <button 
           id="startGameBtn" 
-          class="confirm-btn" 
+          class="confirm-btn fly-in" 
+          :style="{ animationDelay: '0.5s' }"
           :disabled="!isValid()"
           @click="startGame"
         >
           Bắt Đầu
         </button>
-        <button id="cancelNewGame" class="cancel-btn" @click="closeModal">Hủy</button>
+        <button id="cancelNewGame" class="cancel-btn fly-in" :style="{ animationDelay: '0.6s' }" @click="closeModal">Hủy</button>
       </div>
     </div>
   </div>
@@ -124,7 +125,8 @@ function handleOutsideClick(e) {
 h3 {
   text-align: center;
   margin-bottom: 20px;
-  color: #333;
+  color: #2E7D32;
+  font-size: 1.5rem;
 }
 
 .room-input-group {
@@ -135,7 +137,7 @@ h3 {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #555;
+  color: #1976D2;
 }
 
 .room-input-group input {
@@ -145,10 +147,11 @@ h3 {
   border-radius: 8px;
   font-size: 16px;
   transition: border-color 0.2s ease;
+  color: #37474F;
 }
 
 .room-input-group input:focus {
-  border-color: #4CAF50;
+  border-color: #1976D2;
   outline: none;
 }
 
@@ -164,7 +167,7 @@ h3 {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #555;
+  color: #1976D2;
 }
 
 .input-group input {
@@ -174,12 +177,13 @@ h3 {
   border-radius: 8px;
   font-size: 16px;
   transition: border-color 0.2s ease;
+  color: #37474F;
 }
 
 .input-group input:focus {
-  border-color: #4CAF50;
+  border-color: #1976D2;
   outline: none;
-  background-color: #e8f5e9;
+  background-color: #E3F2FD;
 }
 
 .modal-buttons {
@@ -200,12 +204,12 @@ h3 {
 }
 
 .confirm-btn {
-  background-color: #4CAF50;
+  background-color: #1976D2;
   color: white;
 }
 
 .confirm-btn:hover:not(:disabled) {
-  background-color: #45a049;
+  background-color: #1565C0;
 }
 
 .confirm-btn:disabled {
@@ -215,11 +219,29 @@ h3 {
 
 .cancel-btn {
   background-color: #f5f5f5;
-  color: #333;
+  color: #424242;
   border: 1px solid #ddd;
 }
 
 .cancel-btn:hover {
   background-color: #e0e0e0;
+}
+
+/* Hiệu ứng bay vào */
+.fly-in {
+  animation: flyIn 0.6s ease-out forwards;
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+@keyframes flyIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 </style>

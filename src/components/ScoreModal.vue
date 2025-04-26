@@ -118,7 +118,8 @@ function closeModal() {
         <div 
           v-for="(player, index) in players" 
           :key="index" 
-          class="player-card"
+          class="player-card fly-in"
+          :style="{ animationDelay: index * 0.1 + 's' }"
           :class="{ 'selected-player': selectedInput === index }"
           @click="selectInput(index)"
         >
@@ -127,10 +128,10 @@ function closeModal() {
         </div>
       </div>
       
-      <div class="current-selection" v-if="selectedInput !== null">
+      <div class="current-selection fly-in" :style="{ animationDelay: '0.4s' }" v-if="selectedInput !== null">
         <p>Đang nhập điểm cho: <strong>{{ players[selectedInput] }}</strong></p>
       </div>
-      <div class="current-selection" v-else>
+      <div class="current-selection fly-in" :style="{ animationDelay: '0.4s' }" v-else>
         <p>Hãy chọn người chơi</p>
       </div>
       
@@ -152,13 +153,14 @@ function closeModal() {
       <div class="modal-buttons">
         <button 
           id="confirmScore" 
-          class="confirm-btn" 
+          class="confirm-btn fly-in" 
+          :style="{ animationDelay: '0.6s' }"
           :disabled="!validateInputs()"
           @click="saveScores"
         >
           Xác nhận
         </button>
-        <button id="cancelScore" class="cancel-btn" @click="closeModal">Hủy</button>
+        <button id="cancelScore" class="cancel-btn fly-in" :style="{ animationDelay: '0.65s' }" @click="closeModal">Hủy</button>
       </div>
     </div>
   </div>
@@ -319,5 +321,23 @@ h3 {
 
 .cancel-btn:hover {
   background-color: #e0e0e0;
+}
+
+/* Hiệu ứng bay vào */
+.fly-in {
+  animation: flyIn 0.6s ease-out forwards;
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+@keyframes flyIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 </style> 
