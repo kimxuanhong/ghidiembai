@@ -5,6 +5,7 @@ import App from './App.vue'
 import router from './router'
 import {register} from '@/services/register-sw.js'
 import { createPinia } from 'pinia'
+import '@/services/install.js'  // Import module cài đặt PWA
 
 register();
 // Hàm khởi tạo app
