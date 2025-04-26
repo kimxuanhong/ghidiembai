@@ -1,10 +1,11 @@
-const CACHE_NAME = 'card-games-cache-v3';
+const CACHE_NAME = 'card-games-cache-v4';
 const urlsToCache = [
     '/ghidiembai/',
     '/ghidiembai/favicon.ico',
     '/ghidiembai/manifest.json',
     '/ghidiembai/assets/index.js',
     '/ghidiembai/assets/index.css',
+    '/ghidiembai/assets/index2.css',
     '/ghidiembai/assets/game-service.js'
 ];
 
