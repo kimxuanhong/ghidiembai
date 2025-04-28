@@ -3,11 +3,10 @@ import './assets/main.css'
 import {createApp} from 'vue'
 import App from './App.vue'
 import router from './router'
-import {register} from '@/services/register-sw.js'
+import { registerSW } from 'virtual:pwa-register'
 import { createPinia } from 'pinia'
 import '@/services/install.js'  // Import module cài đặt PWA
 
-register();
 // Hàm khởi tạo app
 const app = createApp(App);
 const pinia = createPinia();
@@ -15,3 +14,15 @@ const pinia = createPinia();
 app.use(router);
 app.use(pinia);
 app.mount('#app');
+
+// Đăng ký service worker
+registerSW({
+  onNeedRefresh() {
+    if (confirm('Có bản cập nhật mới. Tải lại trang?')) {
+      window.location.reload()
+    }
+  },
+  onOfflineReady() {
+    console.log('App đã sẵn sàng hoạt động offline!')
+  }
+})
