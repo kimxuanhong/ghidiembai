@@ -19,7 +19,7 @@ export default defineConfig({
         globPatterns: [
           '**/*.{js,css,html,ico,png,svg,json,woff,woff2,ttf,eot,otf}'
         ],
-        navigateFallback: '/ghidiembai/',
+        navigateFallback: '/ghidiembai/index.html',
         skipWaiting: true,
         clientsClaim: true,
         runtimeCaching: [
@@ -50,6 +50,7 @@ export default defineConfig({
         background_color: '#ffffff',
         start_url: '/ghidiembai/',
         display: 'standalone',
+        display_override: ['window-controls-overlay'],
         icons: [
           {
             src: 'icons/icon-128x128.png',
