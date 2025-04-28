@@ -7,7 +7,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/ghidiembai/',
+  base: './',
   plugins: [
     vue(),
     vueDevTools(),
@@ -19,7 +19,7 @@ export default defineConfig({
         globPatterns: [
           '**/*.{js,css,html,ico,png,svg,json,woff,woff2,ttf,eot,otf}'
         ],
-        navigateFallback: '/ghidiembai/index.html',
+        navigateFallback: '/index.html',
         skipWaiting: true,
         clientsClaim: true,
         runtimeCaching: [
@@ -48,7 +48,7 @@ export default defineConfig({
         description: 'Ứng dụng ghi điểm ván bài',
         theme_color: '#ffffff',
         background_color: '#ffffff',
-        start_url: '/ghidiembai/',
+        start_url: '/',
         display: 'standalone',
         display_override: ['window-controls-overlay'],
         icons: [
