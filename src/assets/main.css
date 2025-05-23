@@ -5,6 +5,11 @@
   font-family: Arial, sans-serif;
 }
 
+
+html, body {
+  touch-action: manipulation;
+}
+
 body {
   background-color: #f0f2f5;
 }

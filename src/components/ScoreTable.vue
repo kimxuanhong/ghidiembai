@@ -37,8 +37,13 @@ function handleRowClick(index) {
       <thead>
         <tr>
           <th>Vòng</th>
-          <th v-for="(player, index) in game.players" :key="index" :id="`player${index+1}Header`">
-            {{ player }}
+          <th v-for="(player, index) in game.players" :key="index" :id="`player${index+1}Header`" >
+            <div style="display: flex; flex-direction: column; align-items: center;">
+              <span>{{ player }}</span>
+              <span style="color: #e74c3c; font-weight: bold;">
+              ({{ totalScores[index] }})
+              </span>
+            </div>
           </th>
         </tr>
       </thead>
@@ -49,7 +54,7 @@ function handleRowClick(index) {
           @click="handleRowClick(index)"
           :style="{ cursor: game.isEnded ? 'default' : 'pointer' }"
         >
-          <td>{{ reversedScores.length - index }}</td>
+          <td style="color: #ffa100">{{ reversedScores.length - index }}</td>
           <td v-for="(score, scoreIndex) in round" :key="scoreIndex">
             {{ score !== undefined ? score : 0 }}
           </td>
